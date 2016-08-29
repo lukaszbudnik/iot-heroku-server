@@ -1,0 +1,85 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'application'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+group = 'com.github.lukaszbudnik.iot.server'
+archivesBaseName = 'iot-heroku-server'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url 'http://repository.apache.org/content/repositories/snapshots'
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled false
+        csv.enabled false
+    }
+}
+
+test {
+    reports {
+        junitXml.enabled = true
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        events 'failed', 'passed', 'skipped'
+    }
+}
+
+dependencies {
+    compile 'org.apache.logging.log4j:log4j-core:2.1'
+    compile 'io.dropwizard:dropwizard-core:0.8.1'
+    compile 'io.dropwizard:dropwizard-assets:0.8.1'
+    compile 'com.github.lukaszbudnik.guice-properties-el:guice-properties-el:1.1.0'
+    compile 'com.att.m2x:java:5.0.0'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'io.dropwizard:dropwizard-testing:0.8.1'
+}
+
+mainClassName = 'com.github.lukaszbudnik.iot.server.core.ServerApplication'
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': mainClassName
+        )
+    }
+}
+
+
+run {
+    args 'server', 'src/main/resources/server.yaml'
+}
+
+task stage {
+    dependsOn installDist
+}
+
+task printTestErrors {
+    def xmlReports = new File("${buildDir}/test-results")
+    if (xmlReports.exists()) {
+        xmlReports.eachFileMatch(groovy.io.FileType.FILES, ~/TEST\-.*\.xml/) {
+            def testsuite = new groovy.util.XmlParser().parse(it)
+            testsuite.testcase.findAll {
+                it.failure.size() > 0
+            }.each {
+                println it
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Device stats</title>
+    <script src="/js/jquery-2.1.1.min.js"></script>
+    <script src="/js/stats.js"></script>
+</head>
+<body>
+<form name="statsForm">
+    <p>
+        Device: <input type="text" name="device" id="device" size="45" value="" /> <input type="button" value="Get details" onclick="stats.details()" />
+    </p>
+</form>
+<pre id="details"></pre>
+<div id="charts"></div>
+</body>
+</html>

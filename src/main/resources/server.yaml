@@ -1,0 +1,11 @@
+---
+iot.env: dev
+iot.properties:
+  - /server.properties
+
+# overwritten at runtime but needs to be added here
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+...

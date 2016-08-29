@@ -1,0 +1,6 @@
+.gradle/
+.idea/
+build/
+iot-heroku-server.iml
+.DS_STORE
+.env

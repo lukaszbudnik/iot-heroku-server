@@ -1,0 +1,1 @@
+web: IOT_HEROKU_SERVER_OPTS="-Ddw.server.applicationConnectors[0].port=$PORT" build/install/iot-heroku-server/bin/iot-heroku-server server build/resources/main/server.yaml
