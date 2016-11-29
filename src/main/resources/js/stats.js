@@ -10,7 +10,7 @@
 var stats = stats || {}
 
 stats.details = function() {
-    var path = '/v1/stats/'
+    var path = '/v1/registry/devices/'
 
     var device = $('#device').val().trim()
 
@@ -34,7 +34,8 @@ stats.details = function() {
         }
       },
       error: function(error) {
-        alert('Got error ==> ' + error)
+        str = JSON.stringify(error, null, 4)
+        $('#details').text(str)
       }
     })
 }

@@ -2,7 +2,7 @@ package com.github.lukaszbudnik.iot.server.core;
 
 import com.github.lukaszbudnik.gpe.PropertiesElResolverModule;
 import com.github.lukaszbudnik.iot.server.service.HomeService;
-import com.github.lukaszbudnik.iot.server.service.StatsService;
+import com.github.lukaszbudnik.iot.server.service.RegistryService;
 import com.github.lukaszbudnik.iot.server.service.TelemetryService;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -22,7 +22,7 @@ public class ServerApplication extends Application<Configuration> {
     public void run(Configuration configuration, Environment environment) throws Exception {
         Injector injector = Guice.createInjector(new PropertiesElResolverModule(configuration.getProperties()));
 
-        Stream.of(TelemetryService.class, StatsService.class, HomeService.class)
+        Stream.of(TelemetryService.class, RegistryService.class, HomeService.class)
                 .forEach((c) -> {
                     Object s = injector.getInstance(c);
                     environment.jersey().register(s);
