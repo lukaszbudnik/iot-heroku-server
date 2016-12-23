@@ -78,7 +78,7 @@ public class DeviceService {
             throw new DeviceNotFoundException("device not found", deviceId);
         }
         executorService.submit(() -> {
-            M2XDevice m2xdevice = m2x.device(deviceId);
+            M2XDevice m2xdevice = m2x.device(m2xDeviceId);
             M2XStream m2xstream = m2xdevice.stream(stream);
 
             // build the payload
