@@ -45,6 +45,7 @@ dependencies {
     compile 'io.dropwizard:dropwizard-assets:0.8.1'
     compile 'com.github.lukaszbudnik.guice-properties-el:guice-properties-el:1.1.0'
     compile 'com.att.m2x:java:5.0.0'
+    compile 'biz.paluch.redis:lettuce:3.2.Final'
 
     testCompile 'junit:junit:4.12'
     testCompile 'io.dropwizard:dropwizard-testing:0.8.1'
